@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: example-config-map
+data:
+  config.json: |
+    {"redis_leader": "redis-leader", "redis-follower": "redis-follower"}

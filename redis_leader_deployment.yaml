@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-leader
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-leader
+  template:
+    metadata:
+      labels: 
+        app: redis-leader
+    spec:
+      containers:
+      - name: redis-leader
+        image: docker.artifactory.euw.platformservices.io/redis:7
+        ports:
+          - containerPort: 6379
+        env:
+          - name: CONFIG_FILE
+            value: /config/config.json
+        volumeMounts:
+          - mountPath: /Users/Florin.Drilea/Basic-Kubernetes-Training/configMap.yaml
+            name: config-volume
+      volumes:
+      - name: config-volume
+        configMap:
+          name: example-config-map
