@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-follower
+spec:
+  type: ClusterIP
+  selector:
+    app: redis-follower
+  ports:
+  - name: http
+    protocol: TCP
+    port: 6379
+    targetPort: 6379
+  - name: metrics-follower
+    protocol: TCP
+    port: 9121
+    targetPort: 9121

@@ -15,15 +15,15 @@ spec:
       containers:
       - name: guestbook-frontend
         image: docker.artifactory.euw.platformservices.io/bpe/guestbook-frontend:1.0.3
-        ports:
-          - containerPort: 80
         env:
           - name: CONFIG_FILE
             value: /config/config.json
+        ports:
+          - containerPort: 80
         volumeMounts:
-          - mountPath: /Users/Florin.Drilea/Basic-Kubernetes-Training/configMap.yaml
-            name: config-volume
+          - name: config-volume
+            mountPath: /config
       volumes:
       - name: config-volume
         configMap:
-          name: example-config-map
+          name: frontend-config

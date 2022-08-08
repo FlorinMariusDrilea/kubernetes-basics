@@ -1,23 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis-leader
+  name: redis-follower
 spec: 
   replicas: 1
   selector:
     matchLabels:
-      app: redis-leader
+      app: redis-follower
   template:
     metadata:
       labels: 
-        app: redis-leader
+        app: redis-follower
     spec:
       containers:
-      - name: redis-leader
+      - name: redis-follower
         image: docker.artifactory.euw.platformservices.io/redis:7
+        command: ["redis-server", "--replicaof", "redis-leader", "6379"]
         ports:
           - containerPort: 6379
-      - name: redis-exporter
+      - name: redis-exporter-follower
         image: docker.artifactory.euw.platformservices.io/redis:7
         ports:
         - name: metrics
